@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/ryd_favicon.png">
+    <title>RYD data input</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      .container {
+        max-width: 1600px;
+      }
+
+      fieldset {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      legend {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      #generatedText {
+        margin-top: 20px;
+        white-space: pre-wrap;
+        font-family: monospace;
+      }
+
+      #copyButton {
+        margin-top: 10px;
+      }
+
+      .btn-radio {
+        margin-right: 10px;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form id="carForm">
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset>
+              <legend>🥳 Feestvierder</legend>
+              <label for="customerName">Naam:</label>
+              <input type="text" id="customerName" name="customerName" />
+
+              <label for="phoneNumber">Gsm nummer:</label>
+              <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                pattern="[0-9]{10}"
+              />
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <legend>🚗 Auto</legend>
+              <label for="carBrand">Merk:</label>
+              <input type="text" id="carBrand" name="carBrand" />
+
+              <label for="carModel">Model:</label>
+              <input type="text" id="carModel" name="carModel" />
+
+              <label for="carColor">Kleur:</label>
+              <input type="text" id="carColor" name="carColor" />
+
+              <label for="carPlate">Nummerplaat:</label>
+              <input
+                type="text"
+                id="carPlate"
+                name="carPlate"
+                placeholder="1-ABC-123"
+              />
+
+              <label>Type schakeling:</label>
+              <div class="btn-group" role="group">
+                <input
+                  type="radio"
+                  id="manual"
+                  name="transmission"
+                  value="handgeschakeld"
+                  class="btn-check"
+required
+                />
+                <label for="manual" class="btn btn-outline-primary btn-radio"
+                  >Handgeschakeld</label
+                >
+
+                <input
+                  type="radio"
+                  id="auto"
+                  name="transmission"
+                  value="automaat"
+                  class="btn-check"
+required
+                />
+                <label for="auto" class="btn btn-outline-primary btn-radio"
+                  >Automaat</label
+                >
+              </div>
+
+              <div class="mt-3">
+                <label>Type brandstof:</label>
+                <div class="btn-group" role="group">
+                  <input
+                    type="radio"
+                    id="benzine"
+                    name="fuelType"
+                    value="benzine"
+                    class="btn-check"
+required
+                  />
+                  <label for="benzine" class="btn btn-outline-primary btn-radio"
+                    >Benzine</label
+                  >
+
+                  <input
+                    type="radio"
+                    id="diesel"
+                    name="fuelType"
+                    value="diesel"
+                    class="btn-check"
+required
+                  />
+                  <label for="diesel" class="btn btn-outline-primary btn-radio"
+                    >Diesel</label
+                  >
+
+                  <input
+                    type="radio"
+                    id="hybride"
+                    name="fuelType"
+                    value="hybride"
+                    class="btn-check"
+required
+                  />
+                  <label for="hybride" class="btn btn-outline-primary btn-radio"
+                    >Hybride</label
+                  >
+
+                  <input
+                    type="radio"
+                    id="elektrisch"
+                    name="fuelType"
+                    value="elektrisch"
+                    class="btn-check"
+required
+                  />
+                  <label
+                    for="elektrisch"
+                    class="btn btn-outline-primary btn-radio"
+                    >Elektrisch</label
+                  >
+
+                  <input
+                    type="radio"
+                    id="lpg"
+                    name="fuelType"
+                    value="lpg"
+                    class="btn-check"
+required
+                  />
+                  <label for="lpg" class="btn btn-outline-primary btn-radio"
+                    >LPG</label
+                  >
+                </div>
+              </div>
+            </fieldset>
+          </div>
+      
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <fieldset>
+              <legend>📍 Startpunt</legend>
+              <label>Type gebouw:</label>
+              <div class="btn-group" role="group">
+                <input
+                  type="radio"
+                  id="woning"
+                  name="buildingType"
+                  value="woning"
+                  class="btn-check"
+required
+                />
+                <label for="woning" class="btn btn-outline-primary btn-radio"
+                  >Woning</label
+                >
+
+                <input
+                  type="radio"
+                  id="appartement"
+                  name="buildingType"
+                  value="appartement"
+                  class="btn-check"
+                  required
+                />
+                <label
+                  for="appartement"
+                  class="btn btn-outline-primary btn-radio"
+                  >Appartement</label
+                >
+
+                <input
+                  type="radio"
+                  id="restaurant"
+                  name="buildingType"
+                  value="restaurant"
+                  class="btn-check"
+                  required
+                />
+                <label
+                  for="restaurant"
+                  class="btn btn-outline-primary btn-radio"
+                  >Restaurant</label
+                >
+
+                <input
+                  type="radio"
+                  id="feestzaal"
+                  name="buildingType"
+                  value="feestzaal"
+                  class="btn-check"
+                  required
+                />
+                <label for="feestzaal" class="btn btn-outline-primary btn-radio"
+                  >Feestzaal</label
+                >
+
+                <input
+                  type="radio"
+                  id="otherBuildingRadio"
+                  name="buildingType"
+                  value="other"
+                  class="btn-check"
+                />
+                <label
+                  for="otherBuildingRadio"
+                  class="btn btn-outline-primary btn-radio"
+                  >Ander:</label
+                >
+              </div>
+              <input
+                type="text"
+                id="otherBuildingText"
+                name="otherBuilding"
+                class="form-control mt-2"
+              />
+
+              <label for="street">Straatnaam:</label>
+              <input type="text" id="street" name="street" />
+
+              <label for="number">Nummer:</label>
+              <input type="text" id="number" name="number" />
+
+              <label for="postcode">Postcode:</label>
+              <input type="text" id="postcode" name="postcode" onchange="fetchPostInfo()"/>
+
+              <label for="city">Gemeente:</label>
+              <select id="city" name="city">
+                <option>Geef de postcode in</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-md-6">
+            <fieldset>
+              <legend>🏁 Eindpunt</legend>
+              <label for="street">Straatnaam:</label>
+              <input type="text" id="street2" name="street" />
+
+              <label for="number">Nummer:</label>
+              <input type="text" id="number2" name="number" />
+
+              <label for="postcode">Postcode:</label>
+              <input type="text" id="postcode2" name="postcode" onchange="fetchPostInfo2()"/>
+
+              <label for="city">Gemeente:</label>
+              <select id="city2" name="city">
+                <option>Geef de postcode in</option>
+              </select>
+            </fieldset>
+          </div>
+        </div>
+        <label for="comments">Extra opmerkingen:</label>
+        <textarea id="comments" name="comments" rows="4"></textarea>
+
+        <input type="submit" value="Genereer bericht" />
+      </form>
+
+      <div id="generatedText"></div>
+      <button id="copyButton" class="btn btn-primary">Kopieer tekst</button>
+    </div>
+
+    <!-- Voeg Bootstrap JavaScript toe vanuit de CDN (popper.js en Bootstrap JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <script>
+      function toStr(elementId) {
+    return document.getElementById(elementId).value.trim();
+  }
+
+  function toggleOtherBuildingText() {
+    var otherBuildingText = document.getElementById("otherBuildingText");
+    var otherBuildingRadio = document.getElementById("otherBuildingRadio");
+
+    // Display the textfield if the "Other" radio button is selected, hide it otherwise
+    otherBuildingText.style.display = otherBuildingRadio.checked ? "block" : "none";
+  }
+
+  function fetchPostInfo() {
+    // Retrieve postcode value
+    var postcode = toStr("postcode");
+
+    // Fetch data from the API
+    fetch(`https://api.basisregisters.dev-vlaanderen.be/v1/postinfo/${postcode}`)
+      .then(response => response.json())
+      .then(data => {
+        // Update the dropdown options based on the response
+        var cityDropdown = document.getElementById("city");
+        cityDropdown.innerHTML = ""; // Clear existing options
+
+        if (data && data.postnamen) {
+          data.postnamen.forEach(postname => {
+            var option = document.createElement("option");
+            option.value = postname.geografischeNaam.spelling;
+            option.text = postname.geografischeNaam.spelling;
+            cityDropdown.add(option);
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching postinfo:", error);
+      });
+  }
+
+  function fetchPostInfo2() {
+    // Retrieve postcode value
+    var postcode = toStr("postcode2");
+
+    // Fetch data from the API
+    fetch(`https://api.basisregisters.dev-vlaanderen.be/v1/postinfo/${postcode}`)
+      .then(response => response.json())
+      .then(data => {
+        // Update the dropdown options based on the response
+        var cityDropdown = document.getElementById("city2");
+        cityDropdown.innerHTML = ""; // Clear existing options
+
+        if (data && data.postnamen) {
+          data.postnamen.forEach(postname => {
+            var option = document.createElement("option");
+            option.value = postname.geografischeNaam.spelling;
+            option.text = postname.geografischeNaam.spelling;
+            cityDropdown.add(option);
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching postinfo:", error);
+      });
+  }
+
+  
+
+      document
+        .getElementById("carForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+
+          // Retrieve form values
+          var carBrand = toStr("carBrand");
+          var carModel = toStr("carModel");
+          var carColor = toStr("carColor");
+          var carPlate = toStr("carPlate");
+
+          // Retrieve values for radio buttons
+          var transmission = document.querySelector(
+            'input[name="transmission"]:checked'
+          ).value;
+          var fuelType = document.querySelector(
+            'input[name="fuelType"]:checked'
+          ).value;
+
+          var customerName = toStr("customerName");
+          var phoneNumber = toStr("phoneNumber");
+
+          var buildingTypeRadio = document.querySelector(
+            'input[name="buildingType"]:checked'
+          );
+          var buildingType =
+            buildingTypeRadio && buildingTypeRadio.value === "other"
+              ? document.getElementById("otherBuildingText").value.trim()
+              : buildingTypeRadio
+              ? buildingTypeRadio.value.trim()
+              : "";
+
+          var street = toStr("street");
+          var number = toStr("number");
+          var postcode = toStr("postcode");
+          var city = toStr("city");
+
+          var street2 = toStr("street2");
+          var number2 = toStr("number2");
+          var postcode2 = toStr("postcode2");
+          var city2 = toStr("city2");
+
+          var comments = toStr("comments");
+
+          var generatedText = 
+`*Feestvierder:*
+${customerName}
+${phoneNumber}
+
+*Gegevens wagen:*
+${carBrand} ${carModel}
+${carPlate}
+Kleur: ${carColor}
+Type schakeling: ${transmission}
+Type brandstof: ${fuelType}
+
+*Startpunt:*
+Type gebouw: ${buildingType}
+${street} ${number}
+${postcode} ${city}
+https://maps.google.com/?q=${street}%20${number},%20${postcode}%20${city}
+
+*Bestemming:*
+${street2} ${number2}
+${postcode2} ${city2}
+https://maps.google.com/?q=${street2}%20${number2},%20${postcode2}%20${city2}
+
+${comments ? `*Extra opmerkingen:* ${comments}` : ''}`;
+
+
+          document.getElementById("generatedText").textContent = generatedText;
+        });
+
+      // Add copy-to-clipboard functionality
+      document
+        .getElementById("copyButton")
+        .addEventListener("click", function () {
+          var generatedText = document.getElementById("generatedText");
+          var textArea = document.createElement("textarea");
+          textArea.value = generatedText.textContent;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
+          alert("Tekst gekopieerd naar het klembord!");
+        });
+    </script>
+  </body>
+</html>
