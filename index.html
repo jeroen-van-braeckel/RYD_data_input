@@ -67,6 +67,17 @@
       #copyButton {
         margin-top: 10px;
       }
+      #generatedText {
+  font-size: 18px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  transition: background-color 0.5s ease;
+}
+
+.copied {
+  background-color: #d4edda; /* Light green color, you can customize it */
+}
 
       .btn-radio {
         margin-right: 10px;
@@ -479,17 +490,24 @@ ${comments ? `*Extra opmerkingen:* ${comments}` : ''}`;
 
       // Add copy-to-clipboard functionality
       document
-        .getElementById("copyButton")
-        .addEventListener("click", function () {
-          var generatedText = document.getElementById("generatedText");
-          var textArea = document.createElement("textarea");
-          textArea.value = generatedText.textContent;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand("copy");
-          document.body.removeChild(textArea);
-          alert("Tekst gekopieerd naar het klembord!");
-        });
+  .getElementById("copyButton")
+  .addEventListener("click", function () {
+    var generatedText = document.getElementById("generatedText");
+    var textArea = document.createElement("textarea");
+    textArea.value = generatedText.textContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+
+    // Add the 'copied' class for the animation
+    generatedText.classList.add("copied");
+
+    // Remove the 'copied' class after the animation duration (500ms in this example)
+    setTimeout(function () {
+      generatedText.classList.remove("copied");
+    }, 500);
+  });
     </script>
   </body>
 </html>
