@@ -1,107 +1,60 @@
 function toStr(elementId) {
-    return document.getElementById(elementId).value.trim();
-  }
+  return document.getElementById(elementId)?.value.trim();
+}
 
+function fetchPostInfoArrival() {
+  var postcode = toStr("postcodeArrival");
 
-  function fetchPostInfo() {
-    // Retrieve postcode value
-    var postcode = toStr("postcode");
-
-    // Fetch data from the API
-    fetch(`https://api.basisregisters.dev-vlaanderen.be/v1/postinfo/${postcode}`)
+  fetch(`https://api.basisregisters.dev-vlaanderen.be/v1/postinfo/${postcode}`)
       .then(response => response.json())
       .then(data => {
-        // Update the dropdown options based on the response
-        var cityDropdown = document.getElementById("city");
-        cityDropdown.innerHTML = ""; // Clear existing options
+          var cityDropdown = document.getElementById("addressSearch");
+          cityDropdown.innerHTML = "";
 
-        if (data && data.postnamen) {
-          data.postnamen.forEach(postname => {
-            var option = document.createElement("option");
-            option.value = postname.geografischeNaam.spelling;
-            option.text = postname.geografischeNaam.spelling;
-            cityDropdown.add(option);
-          });
-        }
+          if (data && data.postnamen) {
+              data.postnamen.forEach(postname => {
+                  var option = document.createElement("option");
+                  option.value = postname.geografischeNaam.spelling;
+                  option.text = postname.geografischeNaam.spelling;
+                  cityDropdown.add(option);
+              });
+          }
       })
       .catch(error => {
-        console.error("Error fetching postinfo:", error);
+          console.error("Error fetching postinfo:", error);
       });
-  }
+}
 
-  function fetchPostInfo2() {
-    // Retrieve postcode value
-    var postcode = toStr("postcode2");
+document.getElementById("carForm").addEventListener("submit", function(event) {
+  event.preventDefault();
 
-    // Fetch data from the API
-    fetch(`https://api.basisregisters.dev-vlaanderen.be/v1/postinfo/${postcode}`)
-      .then(response => response.json())
-      .then(data => {
-        // Update the dropdown options based on the response
-        var cityDropdown = document.getElementById("city2");
-        cityDropdown.innerHTML = ""; // Clear existing options
+  var carBrand = toStr("carBrand");
+  var carModel = toStr("carModel");
+  var carColor = toStr("carColor");
+  var carPlate = toStr("carPlate");
 
-        if (data && data.postnamen) {
-          data.postnamen.forEach(postname => {
-            var option = document.createElement("option");
-            option.value = postname.geografischeNaam.spelling;
-            option.text = postname.geografischeNaam.spelling;
-            cityDropdown.add(option);
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching postinfo:", error);
-      });
-  }
+  var transmission = document.querySelector('input[name="transmission"]:checked')?.value;
+  var fuelType = document.querySelector('input[name="fuelType"]:checked')?.value;
 
-  
+  var customerName = toStr("customerName");
+  var phoneNumber = toStr("phoneNumber");
 
-      document
-        .getElementById("carForm")
-        .addEventListener("submit", function (event) {
-          event.preventDefault(); // Prevent the default form submission
+  var buildingTypeRadio = document.querySelector('input[name="buildingType"]:checked');
+  var buildingType = buildingTypeRadio && buildingTypeRadio?.value === "other" ? document.getElementById("otherBuildingText")?.value.trim() : buildingTypeRadio ? buildingTypeRadio?.value.trim() : "";
 
-          // Retrieve form values
-          var carBrand = toStr("carBrand");
-          var carModel = toStr("carModel");
-          var carColor = toStr("carColor");
-          var carPlate = toStr("carPlate");
+  var street = toStr("street");
+  var number = toStr("number");
+  var postcode = toStr("postcode");
+  var city = toStr("city");
 
-          // Retrieve values for radio buttons
-          var transmission = document.querySelector(
-            'input[name="transmission"]:checked'
-          ).value;
-          var fuelType = document.querySelector(
-            'input[name="fuelType"]:checked'
-          ).value;
+  var streetArrival = toStr("streetArrival");
+  var numberArrival = toStr("numberArrival");
+  var postcodeArrival = toStr("postcodeArrival");
+  var cityArrival = toStr("cityArrival");
 
-          var customerName = toStr("customerName");
-          var phoneNumber = toStr("phoneNumber");
+  var comments = toStr("comments");
 
-          var buildingTypeRadio = document.querySelector(
-            'input[name="buildingType"]:checked'
-          );
-          var buildingType =
-            buildingTypeRadio && buildingTypeRadio.value === "other"
-              ? document.getElementById("otherBuildingText").value.trim()
-              : buildingTypeRadio
-              ? buildingTypeRadio.value.trim()
-              : "";
-
-          var street = toStr("street");
-          var number = toStr("number");
-          var postcode = toStr("postcode");
-          var city = toStr("city");
-
-          var street2 = toStr("street2");
-          var number2 = toStr("number2");
-          var postcode2 = toStr("postcode2");
-          var city2 = toStr("city2");
-
-          var comments = toStr("comments");
-
-          var generatedText = 
+  var generatedText = 
 `*Feestvierder:*
 ${customerName}
 ${phoneNumber}
@@ -120,33 +73,73 @@ ${postcode} ${city}
 https://maps.google.com/?q=${street}%20${number},%20${postcode}%20${city}
 
 *Bestemming:*
-${street2} ${number2}
-${postcode2} ${city2}
-https://maps.google.com/?q=${street2}%20${number2},%20${postcode2}%20${city2}
+${streetArrival} ${numberArrival}
+${cityArrival}
+https://maps.google.com/?q=${streetArrival}%20${numberArrival},%20${cityArrival}
 
 ${comments ? `*Extra opmerkingen:* ${comments}` : ''}`;
 
+  document.getElementById("generatedText").textContent = generatedText;
+});
 
-          document.getElementById("generatedText").textContent = generatedText;
-        });
+document.getElementById("copyButton").addEventListener("click", function() {
+  var generatedText = document.getElementById("generatedText");
+  var textArea = document.createElement("textarea");
+  textArea.value = generatedText.textContent;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
 
-      // Add copy-to-clipboard functionality
-      document
-  .getElementById("copyButton")
-  .addEventListener("click", function () {
-    var generatedText = document.getElementById("generatedText");
-    var textArea = document.createElement("textarea");
-    textArea.value = generatedText.textContent;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    document.body.removeChild(textArea);
+  generatedText.classList.add("copied");
 
-    // Add the 'copied' class for the animation
-    generatedText.classList.add("copied");
-
-    // Remove the 'copied' class after the animation duration (500ms in this example)
-    setTimeout(function () {
+  setTimeout(function() {
       generatedText.classList.remove("copied");
-    }, 500);
+  }, 500);
+});
+
+document.getElementById('addressSearch').addEventListener('input', debounce(fetchSuggestions, 300));
+
+async function fetchSuggestions() {
+  const query = document.getElementById('addressSearch')?.value;
+  const suggestionsList = document.getElementById('suggestionsList');
+
+  if (query.length < 3) {
+      suggestionsList.innerHTML = '';
+      return;
+  }
+
+  const response = await fetch(`https://geo.api.vlaanderen.be/geolocation/v4/Suggestion?q=${query}&c=10`);
+  const data = await response.json();
+
+  suggestionsList.innerHTML = '';
+  data.SuggestionResult.forEach(suggestion => {
+      const li = document.createElement('li');
+      li.textContent = suggestion;
+      li.onclick = () => {
+          fillInAddress(suggestion);
+          suggestionsList.innerHTML = '';  // Clear the dropdown
+      };
+      suggestionsList.appendChild(li);
   });
+}
+
+function fillInAddress(address) {
+  const addressParts = address.split(', ');
+  const [streetAndNumber, city] = addressParts;
+  const streetParts = streetAndNumber.split(' ');
+  const number = streetParts.pop();
+  const street = streetParts.join(' ');
+
+  document.getElementById('streetArrival').value = street || '';
+  document.getElementById('numberArrival').value = number || '';
+  document.getElementById('cityArrival').value = city || '';
+}
+
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}

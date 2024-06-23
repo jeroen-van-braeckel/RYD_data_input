@@ -48,7 +48,6 @@
                 type="text"
                 id="carPlate"
                 name="carPlate"
-                placeholder="1-ABC-123"
               />
 
               <label>Type schakeling:</label>
@@ -59,7 +58,6 @@
                   name="transmission"
                   value="handgeschakeld"
                   class="btn-check"
-                  required
                 />
                 <label for="manual" class="btn btn-outline-primary btn-radio"
                   >Handgeschakeld</label
@@ -71,7 +69,6 @@
                   name="transmission"
                   value="automaat"
                   class="btn-check"
-                  required
                 />
                 <label for="auto" class="btn btn-outline-primary btn-radio"
                   >Automaat</label
@@ -87,7 +84,6 @@
                     name="fuelType"
                     value="benzine"
                     class="btn-check"
-                    required
                   />
                   <label for="benzine" class="btn btn-outline-primary btn-radio"
                     >Benzine</label
@@ -99,7 +95,6 @@
                     name="fuelType"
                     value="diesel"
                     class="btn-check"
-                    required
                   />
                   <label for="diesel" class="btn btn-outline-primary btn-radio"
                     >Diesel</label
@@ -111,7 +106,7 @@
                     name="fuelType"
                     value="hybride"
                     class="btn-check"
-                    required
+                    
                   />
                   <label for="hybride" class="btn btn-outline-primary btn-radio"
                     >Hybride</label
@@ -123,7 +118,7 @@
                     name="fuelType"
                     value="elektrisch"
                     class="btn-check"
-                    required
+                    
                   />
                   <label
                     for="elektrisch"
@@ -137,7 +132,7 @@
                     name="fuelType"
                     value="lpg"
                     class="btn-check"
-                    required
+                    
                   />
                   <label for="lpg" class="btn btn-outline-primary btn-radio"
                     >LPG</label
@@ -160,7 +155,7 @@
                   name="buildingType"
                   value="woning"
                   class="btn-check"
-                  required
+                  
                 />
                 <label for="woning" class="btn btn-outline-primary btn-radio"
                   >Woning</label
@@ -173,7 +168,7 @@
                   value="appartement"
                   class="btn-check"
                   onchange="toggleOtherBuildingText()"
-                  required
+                  
                 />
                 <label
                   for="appartement"
@@ -187,7 +182,7 @@
                   name="buildingType"
                   value="restaurant"
                   class="btn-check"
-                  required
+                  
                 />
                 <label
                   for="restaurant"
@@ -201,7 +196,6 @@
                   name="buildingType"
                   value="feestzaal"
                   class="btn-check"
-                  required
                 />
                 <label for="feestzaal" class="btn btn-outline-primary btn-radio"
                   >Feestzaal</label
@@ -250,26 +244,22 @@
           <div class="col-md-6">
             <fieldset>
               <legend>🏁 Eindpunt</legend>
+              <label for="addressSearch" id="addressSearchLabel">Zoek hier een adres:</label>
+              <input type="text" id="addressSearch" name="addressSearch" />
+              <ul id="suggestionsList" class="suggestions-list"></ul>
+          <p>Of geef handmatig een adres in:</p>
               <label for="street">Straatnaam:</label>
-              <input type="text" id="street2" name="street" />
-
+              <input type="text" id="streetArrival" name="street" />
+          
               <label for="number">Nummer:</label>
-              <input type="text" id="number2" name="number" />
-
-              <label for="postcode">Postcode:</label>
-              <input
-                type="text"
-                id="postcode2"
-                name="postcode"
-                onchange="fetchPostInfo2()"
-              />
-
-              <label for="city">Gemeente:</label>
-              <select id="city2" name="city">
-                <option>Geef de postcode in</option>
-              </select>
+              <input type="text" id="numberArrival" name="number" />
+          
+              <label for="postcode">Postcode en/of gemeente</label>
+              <input type="text" id="cityArrival" name="postcode" />
             </fieldset>
           </div>
+          
+          
         </div>
         <label for="comments">Extra opmerkingen:</label>
         <textarea id="comments" name="comments" rows="4"></textarea>
@@ -278,7 +268,7 @@
       </form>
 
       <div id="generatedText"></div>
-      <button id="copyButton" class="btn btn-primary">Kopieer tekst</button>
+      <button id="copyButton" class="btn btn-primary">Kopieer bericht</button>
     </div>
 
     <!-- Voeg Bootstrap JavaScript toe vanuit de CDN (popper.js en Bootstrap JS) -->
