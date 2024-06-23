@@ -1,3 +1,4 @@
+
 function toStr(elementId) {
   return document.getElementById(elementId)?.value.trim();
 }
@@ -25,6 +26,7 @@ function fetchPostInfoArrival() {
       });
 }
 
+
 document.getElementById("carForm").addEventListener("submit", function(event) {
   event.preventDefault();
 
@@ -44,13 +46,17 @@ document.getElementById("carForm").addEventListener("submit", function(event) {
 
   var street = toStr("street");
   var number = toStr("number");
-  var postcode = toStr("postcode");
-  var city = toStr("city");
+  var cityStart = toStr("postcodeAndCity");
+  
+  var [postcodeStart, ...cityParts] = cityStart.split(' ');
+  var cityStartName = cityParts.join(' ');
 
   var streetArrival = toStr("streetArrival");
   var numberArrival = toStr("numberArrival");
-  var postcodeArrival = toStr("postcodeArrival");
   var cityArrival = toStr("cityArrival");
+
+  var [postcodeArrival, ...cityParts] = cityArrival.split(' ');
+  var cityArrivalName = cityParts.join(' ');
 
   var comments = toStr("comments");
 
@@ -69,13 +75,17 @@ Type brandstof: ${fuelType}
 *Startpunt:*
 Type gebouw: ${buildingType}
 ${street} ${number}
-${postcode} ${city}
-https://maps.google.com/?q=${street}%20${number},%20${postcode}%20${city}
+${cityStart}
+https://maps.google.com/?q=${street}%20${number},%20${postcodeStart}%20${cityStartName}
 
 *Bestemming:*
 ${streetArrival} ${numberArrival}
 ${cityArrival}
-https://maps.google.com/?q=${streetArrival}%20${numberArrival},%20${cityArrival}
+https://maps.google.com/?q=${streetArrival}%20${numberArrival},%20${postcodeArrival}%20${cityArrivalName}
+
+*Routebeschrijving:*
+https://www.google.com/maps/dir/${encodeURIComponent(street + ' ' + number + ', ' + cityStart)}/${encodeURIComponent(streetArrival + ' ' + numberArrival + ', ' + cityArrivalName)}
+
 
 ${comments ? `*Extra opmerkingen:* ${comments}` : ''}`;
 
@@ -99,6 +109,7 @@ document.getElementById("copyButton").addEventListener("click", function() {
 });
 
 document.getElementById('addressSearch').addEventListener('input', debounce(fetchSuggestions, 300));
+document.getElementById('addressSearchStart').addEventListener('input', debounce(fetchSuggestionsStart, 300));
 
 async function fetchSuggestions() {
   const query = document.getElementById('addressSearch')?.value;
@@ -117,23 +128,47 @@ async function fetchSuggestions() {
       const li = document.createElement('li');
       li.textContent = suggestion;
       li.onclick = () => {
-          fillInAddress(suggestion);
+          fillInAddress(suggestion, 'streetArrival', 'numberArrival', 'cityArrival');
           suggestionsList.innerHTML = '';  // Clear the dropdown
       };
       suggestionsList.appendChild(li);
   });
 }
 
-function fillInAddress(address) {
+async function fetchSuggestionsStart() {
+  const query = document.getElementById('addressSearchStart')?.value;
+  const suggestionsListStart = document.getElementById('suggestionsListStart');
+
+  if (query.length < 3) {
+      suggestionsListStart.innerHTML = '';
+      return;
+  }
+
+  const response = await fetch(`https://geo.api.vlaanderen.be/geolocation/v4/Suggestion?q=${query}&c=25`);
+  const data = await response.json();
+
+  suggestionsListStart.innerHTML = '';
+  data.SuggestionResult.forEach(suggestion => {
+      const li = document.createElement('li');
+      li.textContent = suggestion;
+      li.onclick = () => {
+          fillInAddress(suggestion, 'street', 'number', 'postcodeAndCity');
+          suggestionsListStart.innerHTML = '';  // Clear the dropdown
+      };
+      suggestionsListStart.appendChild(li);
+  });
+}
+
+function fillInAddress(address, streetId, numberId, cityId) {
   const addressParts = address.split(', ');
   const [streetAndNumber, city] = addressParts;
   const streetParts = streetAndNumber.split(' ');
   const number = streetParts.pop();
   const street = streetParts.join(' ');
 
-  document.getElementById('streetArrival').value = street || '';
-  document.getElementById('numberArrival').value = number || '';
-  document.getElementById('cityArrival').value = city || '';
+  document.getElementById(streetId).value = street || '';
+  document.getElementById(numberId).value = number || '';
+  document.getElementById(cityId).value = city || '';
 }
 
 function debounce(func, delay) {

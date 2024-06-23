@@ -44,11 +44,7 @@
               <input type="text" id="carColor" name="carColor" />
 
               <label for="carPlate">Nummerplaat:</label>
-              <input
-                type="text"
-                id="carPlate"
-                name="carPlate"
-              />
+              <input type="text" id="carPlate" name="carPlate" />
 
               <label>Type schakeling:</label>
               <div class="btn-group" role="group">
@@ -106,7 +102,6 @@
                     name="fuelType"
                     value="hybride"
                     class="btn-check"
-                    
                   />
                   <label for="hybride" class="btn btn-outline-primary btn-radio"
                     >Hybride</label
@@ -118,7 +113,6 @@
                     name="fuelType"
                     value="elektrisch"
                     class="btn-check"
-                    
                   />
                   <label
                     for="elektrisch"
@@ -132,7 +126,6 @@
                     name="fuelType"
                     value="lpg"
                     class="btn-check"
-                    
                   />
                   <label for="lpg" class="btn btn-outline-primary btn-radio"
                     >LPG</label
@@ -147,6 +140,26 @@
           <div class="col-md-6">
             <fieldset>
               <legend>📍 Startpunt</legend>
+
+              <label for="addressSearchStart" id="addressSearchLabel">Zoek hier een adres:</label>
+              <input type="text" id="addressSearchStart" name="addressSearchStart" />
+              <ul id="suggestionsListStart" class="suggestions-list"></ul>
+              <p>Of geef handmatig een adres in:</p>
+
+              <label for="street">Straatnaam:</label>
+              <input type="text" id="street" name="street" />
+
+              <label for="number">Nummer:</label>
+              <input type="text" id="number" name="number" />
+
+              <label for="postcode">Postcode en/of gemeente:</label>
+              <input
+                type="text"
+                id="postcodeAndCity"
+                name="postcode"
+              />
+
+              
               <label>Type gebouw:</label>
               <div class="btn-group" role="group">
                 <input
@@ -155,7 +168,6 @@
                   name="buildingType"
                   value="woning"
                   class="btn-check"
-                  
                 />
                 <label for="woning" class="btn btn-outline-primary btn-radio"
                   >Woning</label
@@ -168,7 +180,6 @@
                   value="appartement"
                   class="btn-check"
                   onchange="toggleOtherBuildingText()"
-                  
                 />
                 <label
                   for="appartement"
@@ -182,7 +193,6 @@
                   name="buildingType"
                   value="restaurant"
                   class="btn-check"
-                  
                 />
                 <label
                   for="restaurant"
@@ -220,25 +230,6 @@
                 name="otherBuilding"
                 class="form-control mt-2"
               />
-
-              <label for="street">Straatnaam:</label>
-              <input type="text" id="street" name="street" />
-
-              <label for="number">Nummer:</label>
-              <input type="text" id="number" name="number" />
-
-              <label for="postcode">Postcode:</label>
-              <input
-                type="text"
-                id="postcode"
-                name="postcode"
-                onchange="fetchPostInfo()"
-              />
-
-              <label for="city">Gemeente:</label>
-              <select id="city" name="city">
-                <option>Geef de postcode in</option>
-              </select>
             </fieldset>
           </div>
           <div class="col-md-6">
@@ -247,7 +238,7 @@
               <label for="addressSearch" id="addressSearchLabel">Zoek hier een adres:</label>
               <input type="text" id="addressSearch" name="addressSearch" />
               <ul id="suggestionsList" class="suggestions-list"></ul>
-          <p>Of geef handmatig een adres in:</p>
+              <p>Of geef handmatig een adres in:</p>
               <label for="street">Straatnaam:</label>
               <input type="text" id="streetArrival" name="street" />
           
@@ -258,9 +249,8 @@
               <input type="text" id="cityArrival" name="postcode" />
             </fieldset>
           </div>
-          
-          
         </div>
+
         <label for="comments">Extra opmerkingen:</label>
         <textarea id="comments" name="comments" rows="4"></textarea>
 
@@ -277,3 +267,4 @@
     <script src="script.js"></script>
   </body>
 </html>
+
