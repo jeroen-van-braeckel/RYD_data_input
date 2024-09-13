@@ -178,3 +178,20 @@ function debounce(func, delay) {
       timeout = setTimeout(() => func.apply(this, args), delay);
   };
 }
+
+const otherRadio = document.getElementById('otherBuildingRadio');
+const otherInput = document.getElementById('otherBuildingText');
+
+// Initially hide the "other" input field
+otherInput.style.display = 'none';
+
+// Add event listener to the radio buttons
+document.querySelectorAll('input[name="buildingType"]').forEach(radio => {
+  radio.addEventListener('change', function() {
+    if (otherRadio.checked) {
+      otherInput.style.display = 'block'; // Show the input if "other" is selected
+    } else {
+      otherInput.style.display = 'none'; // Hide the input if any other option is selected
+    }
+  });
+});
