@@ -86,7 +86,6 @@ https://maps.google.com/?q=${streetArrival}%20${numberArrival},%20${postcodeArri
 *Routebeschrijving:*
 https://www.google.com/maps/dir/${encodeURIComponent(street + ' ' + number + ', ' + cityStart)}/${encodeURIComponent(streetArrival + ' ' + numberArrival + ', ' + cityArrivalName)}
 
-
 ${comments ? `*Extra opmerkingen:* ${comments}` : ''}`;
 
   document.getElementById("generatedText").textContent = generatedText;
