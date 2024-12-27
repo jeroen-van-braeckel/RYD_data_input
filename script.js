@@ -162,8 +162,14 @@ function fillInAddress(address, streetId, numberId, cityId) {
   const addressParts = address.split(', ');
   const [streetAndNumber, city] = addressParts;
   const streetParts = streetAndNumber.split(' ');
-  const number = streetParts.pop();
-  const street = streetParts.join(' ');
+  
+  let number = '';
+  let street = streetAndNumber;
+
+  if (!isNaN(streetParts[streetParts.length - 1])) {
+    number = streetParts.pop();
+    street = streetParts.join(' ');
+  }
 
   document.getElementById(streetId).value = street || '';
   document.getElementById(numberId).value = number || '';
@@ -194,3 +200,24 @@ document.querySelectorAll('input[name="buildingType"]').forEach(radio => {
     }
   });
 });
+
+
+document.getElementById('phoneNumber').addEventListener('focusout', function(event){
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const phoneNumberPattern = /^[0-9]{10}$/;
+    const warningMessage = document.getElementById('phoneWarning');
+  
+    // Check if the phone number doesn't match the pattern
+    if (!phoneNumberPattern.test(phoneNumber)) {
+      // Prevent the warning message from being added multiple times
+      if (!warningMessage) {
+        const warning = document.createElement('p');
+        warning.id = 'phoneWarning';
+        warning.textContent = '⚠️ Het gsm nummer moet 10 cijfers bevatten.';
+        warning.style.color = 'red';
+        document.getElementById('phoneNumber').parentElement.appendChild(warning);
+      }
+    } else if (warningMessage) {
+      warningMessage.remove(); // Remove the warning if the phone number is valid
+    }
+  });

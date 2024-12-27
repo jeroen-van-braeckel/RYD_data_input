@@ -1,269 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/jeroen-van-braeckel/RYD_data_input/master/ryd_favicon.png" />
-    <title>RYD data input</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <form id="carForm">
-        <div class="row">
-          <div class="col-md-6">
-            <fieldset>
-              <legend>🥳 Feestvierder</legend>
-              <label for="customerName">Naam:</label>
-              <input type="text" id="customerName" name="customerName" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon"
+    href="https://raw.githubusercontent.com/jeroen-van-braeckel/RYD_data_input/master/ryd_favicon.png" />
+  <title>RYD data input</title>
 
-              <label for="phoneNumber">Gsm nummer:</label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                pattern="[0-9]{10}"
-              />
-            </fieldset>
-          </div>
-          <div class="col-md-6">
-            <fieldset>
-              <legend>🚗 Auto</legend>
-              <label for="carBrand">Merk:</label>
-              <input type="text" id="carBrand" name="carBrand" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
 
-              <label for="carModel">Model:</label>
-              <input type="text" id="carModel" name="carModel" />
+<body>
+  <div class="container">
+    <form id="carForm">
+      <div class="row">
+        <div class="col-md-6">
+          <fieldset>
+            <legend>🥳 Feestvierder</legend>
+            <label for="customerName">Naam:</label>
+            <input type="text" id="customerName" name="customerName" />
 
-              <label for="carColor">Kleur:</label>
-              <input type="text" id="carColor" name="carColor" />
-
-              <label for="carPlate">Nummerplaat:</label>
-              <input type="text" id="carPlate" name="carPlate" />
-
-              <label>Type schakeling:</label>
-              <div class="btn-group" role="group">
-                <input
-                  type="radio"
-                  id="manual"
-                  name="transmission"
-                  value="handgeschakeld"
-                  class="btn-check"
-                />
-                <label for="manual" class="btn btn-outline-primary btn-radio"
-                  >Handgeschakeld</label
-                >
-
-                <input
-                  type="radio"
-                  id="auto"
-                  name="transmission"
-                  value="automaat"
-                  class="btn-check"
-                />
-                <label for="auto" class="btn btn-outline-primary btn-radio"
-                  >Automaat</label
-                >
-              </div>
-
-              <div class="mt-3">
-                <label>Type brandstof:</label>
-                <div class="btn-group" role="group">
-                  <input
-                    type="radio"
-                    id="benzine"
-                    name="fuelType"
-                    value="benzine"
-                    class="btn-check"
-                  />
-                  <label for="benzine" class="btn btn-outline-primary btn-radio"
-                    >Benzine</label
-                  >
-
-                  <input
-                    type="radio"
-                    id="diesel"
-                    name="fuelType"
-                    value="diesel"
-                    class="btn-check"
-                  />
-                  <label for="diesel" class="btn btn-outline-primary btn-radio"
-                    >Diesel</label
-                  >
-
-                  <input
-                    type="radio"
-                    id="hybride"
-                    name="fuelType"
-                    value="hybride"
-                    class="btn-check"
-                  />
-                  <label for="hybride" class="btn btn-outline-primary btn-radio"
-                    >Hybride</label
-                  >
-
-                  <input
-                    type="radio"
-                    id="elektrisch"
-                    name="fuelType"
-                    value="elektrisch"
-                    class="btn-check"
-                  />
-                  <label
-                    for="elektrisch"
-                    class="btn btn-outline-primary btn-radio"
-                    >Elektrisch</label
-                  >
-
-                  <input
-                    type="radio"
-                    id="lpg"
-                    name="fuelType"
-                    value="lpg"
-                    class="btn-check"
-                  />
-                  <label for="lpg" class="btn btn-outline-primary btn-radio"
-                    >LPG</label
-                  >
-                </div>
-              </div>
-            </fieldset>
-          </div>
+            <label for="phoneNumber">Gsm nummer:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" />
+          </fieldset>
         </div>
+        <div class="col-md-6">
+          <fieldset>
+            <legend>🚗 Auto</legend>
+            <label for="carBrand">Merk:</label>
+            <input type="text" id="carBrand" name="carBrand" />
 
-        <div class="row">
-          <div class="col-md-6">
-            <fieldset>
-              <legend>📍 Startpunt</legend>
+            <label for="carModel">Model:</label>
+            <input type="text" id="carModel" name="carModel" />
 
-              <label for="addressSearchStart" id="addressSearchLabel">Zoek hier een adres:</label>
-              <input type="text" id="addressSearchStart" name="addressSearchStart" />
-              <ul id="suggestionsListStart" class="suggestions-list"></ul>
-              <p>Of geef handmatig een adres in:</p>
+            <label for="carColor">Kleur:</label>
+            <input type="text" id="carColor" name="carColor" />
 
-              <label for="street">Straatnaam:</label>
-              <input type="text" id="street" name="street" />
+            <label for="carPlate">Nummerplaat:</label>
+            <input type="text" id="carPlate" name="carPlate" />
 
-              <label for="number">Nummer:</label>
-              <input type="text" id="number" name="number" />
+            <label>Type schakeling:</label>
+            <div class="btn-group" role="group">
+              <input type="radio" id="manual" name="transmission" value="handgeschakeld" class="btn-check" />
+              <label for="manual" class="btn btn-outline-primary btn-radio">Handgeschakeld</label>
 
-              <label for="postcode">Postcode en/of gemeente:</label>
-              <input
-                type="text"
-                id="postcodeAndCity"
-                name="postcode"
-              />
+              <input type="radio" id="auto" name="transmission" value="automaat" class="btn-check" />
+              <label for="auto" class="btn btn-outline-primary btn-radio">Automaat</label>
+            </div>
 
-              
-              <label>Type gebouw:</label>
+            <div class="mt-3">
+              <label>Type brandstof:</label>
               <div class="btn-group" role="group">
-                <input
-                  type="radio"
-                  id="woning"
-                  name="buildingType"
-                  value="woning"
-                  class="btn-check"
-                />
-                <label for="woning" class="btn btn-outline-primary btn-radio"
-                  >Woning</label
-                >
+                <input type="radio" id="benzine" name="fuelType" value="benzine" class="btn-check" />
+                <label for="benzine" class="btn btn-outline-primary btn-radio">Benzine</label>
 
-                <input
-                  type="radio"
-                  id="appartement"
-                  name="buildingType"
-                  value="appartement"
-                  class="btn-check"
-                />
-                <label
-                  for="appartement"
-                  class="btn btn-outline-primary btn-radio"
-                  >Appartement</label
-                >
+                <input type="radio" id="diesel" name="fuelType" value="diesel" class="btn-check" />
+                <label for="diesel" class="btn btn-outline-primary btn-radio">Diesel</label>
 
-                <input
-                  type="radio"
-                  id="restaurant"
-                  name="buildingType"
-                  value="restaurant"
-                  class="btn-check"
-                />
-                <label
-                  for="restaurant"
-                  class="btn btn-outline-primary btn-radio"
-                  >Restaurant</label
-                >
+                <input type="radio" id="hybride" name="fuelType" value="hybride" class="btn-check" />
+                <label for="hybride" class="btn btn-outline-primary btn-radio">Hybride</label>
 
-                <input
-                  type="radio"
-                  id="feestzaal"
-                  name="buildingType"
-                  value="feestzaal"
-                  class="btn-check"
-                />
-                <label for="feestzaal" class="btn btn-outline-primary btn-radio"
-                  >Feestzaal</label
-                >
+                <input type="radio" id="elektrisch" name="fuelType" value="elektrisch" class="btn-check" />
+                <label for="elektrisch" class="btn btn-outline-primary btn-radio">Elektrisch</label>
 
-                <input
-                  type="radio"
-                  id="otherBuildingRadio"
-                  name="buildingType"
-                  value="other"
-                  class="btn-check"
-                />
-                <label
-                  for="otherBuildingRadio"
-                  class="btn btn-outline-primary btn-radio"
-                  >Ander:</label
-                >
+                <input type="radio" id="lpg" name="fuelType" value="lpg" class="btn-check" />
+                <label for="lpg" class="btn btn-outline-primary btn-radio">LPG</label>
               </div>
-              <input
-                type="text"
-                id="otherBuildingText"
-                name="otherBuilding"
-                class="form-control mt-2"
-              />
-            </fieldset>
-          </div>
-          <div class="col-md-6">
-            <fieldset>
-              <legend>🏁 Eindpunt</legend>
-              <label for="addressSearch" id="addressSearchLabel">Zoek hier een adres:</label>
-              <input type="text" id="addressSearch" name="addressSearch" />
-              <ul id="suggestionsList" class="suggestions-list"></ul>
-              <p>Of geef handmatig een adres in:</p>
-              <label for="street">Straatnaam:</label>
-              <input type="text" id="streetArrival" name="street" />
-          
-              <label for="number">Nummer:</label>
-              <input type="text" id="numberArrival" name="number" />
-          
-              <label for="postcode">Postcode en/of gemeente</label>
-              <input type="text" id="cityArrival" name="postcode" />
-            </fieldset>
-          </div>
+            </div>
+          </fieldset>
         </div>
+      </div>
 
-        <label for="comments">Extra opmerkingen:</label>
-        <textarea id="comments" name="comments" rows="4"></textarea>
+      <div class="row">
+        <div class="col-md-6">
+          <fieldset>
+            <legend>📍 Startpunt</legend>
 
-        <input type="submit" value="Genereer bericht" />
-      </form>
+            <label for="addressSearchStart" id="addressSearchLabel">Zoek hier een adres:</label>
+            <input type="text" id="addressSearchStart" name="addressSearchStart" />
+            <ul id="suggestionsListStart" class="suggestions-list"></ul>
+            <p>Of geef handmatig een adres in:</p>
 
-      <div id="generatedText"></div>
-      <button id="copyButton" class="btn btn-primary">Kopieer bericht</button>
-    </div>
+            <label for="street">Straatnaam:</label>
+            <input type="text" id="street" name="street" />
 
-    <!-- Voeg Bootstrap JavaScript toe vanuit de CDN (popper.js en Bootstrap JS) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+            <label for="number">Nummer:</label>
+            <input type="text" id="number" name="number" />
+
+            <label for="postcode">Postcode en/of gemeente:</label>
+            <input type="text" id="postcodeAndCity" name="postcode" />
+
+
+            <label>Type gebouw:</label>
+            <div class="btn-group" role="group">
+              <input type="radio" id="woning" name="buildingType" value="woning" class="btn-check" />
+              <label for="woning" class="btn btn-outline-primary btn-radio">Woning</label>
+
+              <input type="radio" id="appartement" name="buildingType" value="appartement" class="btn-check" />
+              <label for="appartement" class="btn btn-outline-primary btn-radio">Appartement</label>
+
+              <input type="radio" id="restaurant" name="buildingType" value="restaurant" class="btn-check" />
+              <label for="restaurant" class="btn btn-outline-primary btn-radio">Restaurant</label>
+
+              <input type="radio" id="feestzaal" name="buildingType" value="feestzaal" class="btn-check" />
+              <label for="feestzaal" class="btn btn-outline-primary btn-radio">Feestzaal</label>
+
+              <input type="radio" id="otherBuildingRadio" name="buildingType" value="other" class="btn-check" />
+              <label for="otherBuildingRadio" class="btn btn-outline-primary btn-radio">Ander:</label>
+            </div>
+            <input type="text" id="otherBuildingText" name="otherBuilding" class="form-control mt-2" />
+          </fieldset>
+        </div>
+        <div class="col-md-6">
+          <fieldset>
+            <legend>🏁 Eindpunt</legend>
+            <label for="addressSearch" id="addressSearchLabel">Zoek hier een adres:</label>
+            <input type="text" id="addressSearch" name="addressSearch" />
+            <ul id="suggestionsList" class="suggestions-list"></ul>
+            <p>Of geef handmatig een adres in:</p>
+            <label for="street">Straatnaam:</label>
+            <input type="text" id="streetArrival" name="street" />
+
+            <label for="number">Nummer:</label>
+            <input type="text" id="numberArrival" name="number" />
+
+            <label for="postcode">Postcode en/of gemeente</label>
+            <input type="text" id="cityArrival" name="postcode" />
+          </fieldset>
+        </div>
+      </div>
+
+      <label for="comments">Extra opmerkingen:</label>
+      <textarea id="comments" name="comments" rows="4"></textarea>
+
+      <input type="submit" value="Genereer bericht" />
+    </form>
+
+    <div id="generatedText"></div>
+    <button id="copyButton" class="btn btn-primary">Kopieer bericht</button>
+  </div>
+
+  <!-- Voeg Bootstrap JavaScript toe vanuit de CDN (popper.js en Bootstrap JS) -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>
-
