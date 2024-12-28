@@ -221,3 +221,24 @@ document.getElementById('phoneNumber').addEventListener('focusout', function(eve
       warningMessage.remove(); // Remove the warning if the phone number is valid
     }
   });
+
+  const passengersInput = document.getElementById('numberOfPassengers');
+  const seatsInput = document.getElementById('numberOfSeats');
+  const comparisonText = document.getElementById('comparison');
+
+  function updateComparison() {
+    const passengers = parseInt(passengersInput.value) || 0;
+    const seats = parseInt(seatsInput.value) || 0;
+    const totalWithVolunteer = passengers + 1;
+
+    if (totalWithVolunteer > seats) {
+      comparisonText.textContent = `⚠️ Onvoldoende zitplaatsen: ${totalWithVolunteer} < ${seats}`;
+      comparisonText.style.color = 'red';
+    } else {
+      comparisonText.textContent = `✔️ Voldoende zitplaatsen: ${totalWithVolunteer} <= ${seats}`;
+      comparisonText.style.color = 'green';
+    }
+  }
+
+  passengersInput.addEventListener('input', updateComparison);
+  seatsInput.addEventListener('input', updateComparison);

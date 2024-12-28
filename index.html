@@ -24,6 +24,19 @@
 
             <label for="phoneNumber">Gsm nummer:</label>
             <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="0432123456"/>
+
+         <div style="display: flex; align-items: center; gap: 0.5rem;">
+    <label for="numberOfPassengers">Aantal passagiers:</label>
+    <input type="number" id="numberOfPassengers" name="numberOfPassengers" min="0" style="width: 5rem;" />
+    
+    <span>+ 1 vrijwilliger =</span>
+
+    <label for="numberOfSeats">Aantal zitplaatsen:</label>
+    <input type="number" id="numberOfSeats" name="numberOfSeats" min="0" style="width: 5rem;" />
+  </div>
+  
+  <p id="comparison" style="font-weight: bold;">&nbsp;</p>
+
           </fieldset>
         </div>
         <div class="col-md-6">
