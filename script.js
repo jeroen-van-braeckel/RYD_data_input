@@ -282,7 +282,7 @@ document.getElementById('phoneNumber').addEventListener('focusout', function(eve
   
     // Add image
     const imgData = 'https://raw.githubusercontent.com/jeroen-van-braeckel/RYD_data_input/master/ryd_logo_no_text.png'  // Path to the uploaded image
-    pdf.addImage(imgData, 'PNG', 10, 10, 30, 30);
+    pdf.addImage(imgData, 'PNG', 15, 10, 30, 30);
   
     // Title
     pdf.setFont("helvetica", "bold");
@@ -290,14 +290,14 @@ document.getElementById('phoneNumber').addEventListener('focusout', function(eve
   
     // Section: Customer Details
     pdf.setFont("helvetica", "normal");
-    pdf.text("Feestvierder:", 10, 50);
+    pdf.text("Feestvierder:", 12, 50);
     pdf.setFont("helvetica", "bold");
     pdf.text(customerName, 60, 50);
     pdf.text(phoneNumber, 60, 60);
   
     // Section: Car Details
     pdf.setFont("helvetica", "normal");
-    pdf.text("Gegevens wagen:", 10, 80);
+    pdf.text("Gegevens wagen:", 12, 80);
     pdf.setFont("helvetica", "bold");
     pdf.text(`${carBrand} ${carModel}`, 60, 80);
     pdf.text(`Nummerplaat: ${carPlate}`, 60, 90);
@@ -307,12 +307,12 @@ document.getElementById('phoneNumber').addEventListener('focusout', function(eve
   
    // Horizontal Layout: Start and Destination
   pdf.setFont("helvetica", "normal");
-  pdf.text("Startpunt:", 10, 140);
+  pdf.text("Startpunt:", 12, 140);
   pdf.setTextColor(37, 150, 190);
   pdf.setFont("helvetica", "bold");
-  pdf.text(`${street} ${number}`, 10, 150);
-  pdf.text(cityStart.toUpperCase(), 10, 160);
-  pdf.text(`Type gebouw: ${buildingType}`, 10, 170);
+  pdf.text(`${street} ${number}`, 12, 150);
+  pdf.text(cityStart.toUpperCase(), 12, 160);
+  pdf.text(`Type gebouw: ${buildingType}`, 12, 170);
 
 
   // Draw an arrow between Start and Destination
@@ -342,7 +342,7 @@ document.getElementById('phoneNumber').addEventListener('focusout', function(eve
     pdf.setFont("helvetica", "normal");
   pdf.setTextColor(0, 0, 0);
     if (comments) {
-      pdf.text("Opmerkingen:", 10, 210);
+      pdf.text("Opmerkingen:", 12, 210);
       pdf.setFont("helvetica", "bold");
       pdf.text(comments, 50, 210);
     }
