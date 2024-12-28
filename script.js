@@ -1,7 +1,6 @@
-
-function toStr(elementId) {
-  return document.getElementById(elementId)?.value.trim();
-}
+function toStr(id) {
+    return document.getElementById(id)?.value.trim() || "";
+  }
 
 function fetchPostInfoArrival() {
   var postcode = toStr("postcodeArrival");
@@ -242,3 +241,118 @@ document.getElementById('phoneNumber').addEventListener('focusout', function(eve
 
   passengersInput.addEventListener('input', updateComparison);
   seatsInput.addEventListener('input', updateComparison);
+
+  document.getElementById("generatePdfButton").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf;
+  
+    // Fetch input values
+    const carBrand = toStr("carBrand");
+    const carModel = toStr("carModel");
+    const carColor = toStr("carColor");
+    const carPlate = toStr("carPlate");
+    const transmission = document.querySelector('input[name="transmission"]:checked')?.value;
+    const fuelType = document.querySelector('input[name="fuelType"]:checked')?.value;
+  
+    const customerName = toStr("customerName");
+    const phoneNumber = toStr("phoneNumber");
+  
+    const buildingTypeRadio = document.querySelector('input[name="buildingType"]:checked');
+    const buildingType = buildingTypeRadio && buildingTypeRadio?.value === "other" ? document.getElementById("otherBuildingText")?.value.trim() : buildingTypeRadio ? buildingTypeRadio?.value.trim() : "";
+  
+    const street = toStr("street");
+    const number = toStr("number");
+    const cityStart = toStr("postcodeAndCity");
+  
+    const [postcodeStart, ...cityPartsStart] = cityStart.split(' ');
+    const cityStartName = cityPartsStart.join(' ');
+  
+    const streetArrival = toStr("streetArrival");
+    const numberArrival = toStr("numberArrival");
+    const cityArrival = toStr("cityArrival");
+  
+    const [postcodeArrival, ...cityPartsArrival] = cityArrival.split(' ');
+    const cityArrivalName = cityPartsArrival.join(' ');
+  
+    const comments = toStr("comments");
+  
+    // Generate PDF
+    const pdf = new jsPDF();
+    pdf.setFontSize(14);
+    pdf.setTextColor(40);
+  
+    // Add image
+    const imgData = 'https://raw.githubusercontent.com/jeroen-van-braeckel/RYD_data_input/master/ryd_logo_no_text.png'  // Path to the uploaded image
+    pdf.addImage(imgData, 'PNG', 10, 10, 30, 30);
+  
+    // Title
+    pdf.setFont("helvetica", "bold");
+    pdf.text("Opdracht nr. ___", 105, 20, { align: "center" });
+  
+    // Section: Customer Details
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Feestvierder:", 10, 50);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(customerName, 60, 50);
+    pdf.text(phoneNumber, 60, 60);
+  
+    // Section: Car Details
+    pdf.setFont("helvetica", "normal");
+    pdf.text("Gegevens wagen:", 10, 80);
+    pdf.setFont("helvetica", "bold");
+    pdf.text(`${carBrand} ${carModel}`, 60, 80);
+    pdf.text(`Nummerplaat: ${carPlate}`, 60, 90);
+    pdf.text(`Kleur: ${carColor}`, 60, 100);
+    pdf.text(`Schakeling: ${transmission}`, 60, 110);
+    pdf.text(`Brandstof: ${fuelType}`, 60, 120);
+  
+   // Horizontal Layout: Start and Destination
+  pdf.setFont("helvetica", "normal");
+  pdf.text("Startpunt:", 10, 140);
+  pdf.setTextColor(37, 150, 190);
+  pdf.setFont("helvetica", "bold");
+  pdf.text(`${street} ${number}`, 10, 150);
+  pdf.text(cityStart.toUpperCase(), 10, 160);
+  pdf.text(`Type gebouw: ${buildingType}`, 10, 170);
+
+
+  // Draw an arrow between Start and Destination
+  const arrowStartX = 80; // X position where the arrow starts
+  const arrowY = 150; // Y position of the arrow line
+  const arrowEndX = 100; // X position where the arrow ends
+
+  // Line for the arrow
+  pdf.setDrawColor(0, 0, 0); // Black color for the arrow
+  pdf.setLineWidth(0.5);
+  pdf.line(arrowStartX, arrowY, arrowEndX, arrowY); // Horizontal line
+
+  // Arrowhead (triangle)
+  pdf.line(arrowEndX, arrowY, arrowEndX - 2, arrowY - 2); // Top diagonal line
+  pdf.line(arrowEndX, arrowY, arrowEndX - 2, arrowY + 2); // Bottom diagonal line
+
+
+  pdf.setTextColor(0, 0, 0);
+  pdf.setFont("helvetica", "normal");
+  pdf.text("Bestemming:", 110, 140);
+  pdf.setTextColor(37, 150, 190);
+  pdf.setFont("helvetica", "bold");
+  pdf.text(`${streetArrival} ${numberArrival}`, 110, 150);
+  pdf.text(cityArrival.toUpperCase(), 110, 160);
+  
+    // Section: Comments (if any)
+    pdf.setFont("helvetica", "normal");
+  pdf.setTextColor(0, 0, 0);
+    if (comments) {
+      pdf.text("Opmerkingen:", 10, 210);
+      pdf.setFont("helvetica", "bold");
+      pdf.text(comments, 50, 210);
+    }
+  
+    const pdfBlob = pdf.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    const printWindow = window.open(pdfUrl);
+  
+    // Trigger the print dialog
+    printWindow.onload = () => {
+      printWindow.print();
+    };
+  });

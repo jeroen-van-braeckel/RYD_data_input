@@ -50,7 +50,7 @@ input[type="submit"]:hover {
   font-family: monospace;
 }
 
-#copyButton {
+#copyButton, #generatePdfButton {
   margin-top: 10px;
 }
 #generatedText {
